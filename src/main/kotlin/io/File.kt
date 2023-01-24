@@ -27,6 +27,10 @@ fun mkdir(path: String): Result<Unit> = runCatching {
     fs.createDirectory(path.toPath(), true)
 }
 
+fun extractZipFile(targetPath: String, outputPath: String, overwrite: Boolean = false) {
+    AdmZip(targetPath).extractAllTo(outputPath, overwrite)
+}
+
 fun Path.mkdir(): Result<Unit> = kotlin.runCatching {
     fs.createDirectories(this, true)
 }
@@ -59,10 +63,24 @@ fun Path.copy(targetPath: Path): Result<Unit> = kotlin.runCatching {
     println(warn("Failed to copy file $targetPath"))
 }
 
+fun Path.copyRecursively(targetPath: Path): Result<Unit> = kotlin.runCatching {
+    val metadata = fs.metadata(this)
+    if (!metadata.isDirectory) {
+        copy(targetPath)
+    } else {
+        targetPath.mkdir()
+        list().getOrThrow().forEach {
+            it.copyRecursively(targetPath.div(it.name))
+        }
+    }
+}
+
 fun Path.atomicMove(targetPath: Path): Result<Unit> = kotlin.runCatching {
     fs.atomicMove(this, targetPath)
 }
 
-fun extractZipFile(targetPath: String, outputPath: String, overwrite: Boolean = false) {
-    AdmZip(targetPath).extractAllTo(outputPath, overwrite)
+fun Path.writeText(text: String) {
+    fs.write(this) {
+        writeUtf8(text)
+    }
 }
