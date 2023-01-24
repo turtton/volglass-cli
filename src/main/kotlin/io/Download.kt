@@ -20,7 +20,7 @@ suspend fun downloadLatestRepo() {
     val githubApi = ktorfit.create<GithubApi>()
     println("Checking new releases")
     val releaseData = githubApi.getLatestRelease(OWNER, REPO)
-    val currentCacheData = cache.get()
+    val currentCacheData = CACHE.get()
     val currentTag = currentCacheData?.currentVersion
     val tag = releaseData.tagName
     val volglassPath = VOLGLASS_DIR.toPath()
@@ -39,7 +39,7 @@ suspend fun downloadLatestRepo() {
     extractZipFile(zipFile, VOLGLASS_DIR)
     zipFile.toPath().delete()
     volglassPath.list().getOrThrow()[0].extractFiles()
-    cache.set(currentCacheData?.copy(currentVersion = tag) ?: CacheData(tag))
+    CACHE.set(currentCacheData?.copy(currentVersion = tag) ?: CacheData(tag))
 }
 
 suspend fun HttpStatement.writeToFile(path: String) = execute { response ->
