@@ -1,7 +1,7 @@
 package command
 
+import COROUTINE_SCOPE
 import com.github.ajalt.clikt.core.CliktCommand
-import coroutineScope
 import create
 import execMessage
 import io.POST_DIR
@@ -12,7 +12,7 @@ import note
 
 class Init : CliktCommand() {
     override fun run() {
-        coroutineScope.launch {
+        COROUTINE_SCOPE.launch {
             val installPnpm = "npm" to arrayOf("i", "--save-dev", "--silent", "pnpm")
             echo(execMessage(installPnpm))
             echo(note("Npm cannot output progress. Please wait few minutes..."))

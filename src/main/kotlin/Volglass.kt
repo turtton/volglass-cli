@@ -7,7 +7,7 @@ import command.Serve
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-val coroutineScope = CoroutineScope(Dispatchers.Main)
+val COROUTINE_SCOPE = CoroutineScope(Dispatchers.Main)
 
 @OptIn(ExperimentalJsExport::class)
 @JsExport

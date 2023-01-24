@@ -1,7 +1,7 @@
 package command
 
+import COROUTINE_SCOPE
 import com.github.ajalt.clikt.core.CliktCommand
-import coroutineScope
 import execMessage
 import io.POST_DIR
 import io.VOLGLASS_DIR
@@ -20,7 +20,7 @@ import warn
 
 abstract class Prepare : CliktCommand() {
     override fun run() {
-        coroutineScope.launch {
+        COROUTINE_SCOPE.launch {
             downloadLatestRepo()
             val prepareVolglass = pnpmVolglass("i")
             echo(execMessage(prepareVolglass))

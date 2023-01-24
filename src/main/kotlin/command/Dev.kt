@@ -1,10 +1,10 @@
 package command
 
+import COROUTINE_SCOPE
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
-import coroutineScope
 import execMessage
 import io.POST_DIR
 import io.exists
@@ -20,7 +20,7 @@ class Dev : CliktCommand() {
     private val devDirName by option("-f").default("dev")
 
     override fun run() {
-        coroutineScope.launch {
+        COROUTINE_SCOPE.launch {
             clone(devDirName, useSsh)
             if (useTemplateContent) {
                 TODO("Not implemented yet")
