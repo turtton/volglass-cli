@@ -13,7 +13,7 @@ import note
 class Init : CliktCommand() {
     override fun run() {
         COROUTINE_SCOPE.launch {
-            val installPnpm = "npm" to arrayOf("i", "--save-dev", "--silent", "pnpm@^6")
+            val installPnpm = "npm" to arrayOf("i", "--save-dev", "--silent", "pnpm")
             echo(execMessage(installPnpm))
             echo(note("Npm cannot output progress. Please wait few minutes..."))
             // TODO print npm progress
