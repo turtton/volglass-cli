@@ -29,6 +29,8 @@ abstract class Prepare : CliktCommand() {
             val buildContent = pnpmVolglass("run", "build")
             echo(execMessage(buildContent))
             spawnAsync(buildContent)
+            // FIXME: I don't know why, but first build fails.
+            spawnAsync(buildContent)
             runAsChild()
         }
     }
