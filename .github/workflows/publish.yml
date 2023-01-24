@@ -40,6 +40,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          VERSION_TAG: ${{get_release.tag_name}}
+          VERSION_TAG: ${{steps.get_release.tag_name}}
         with:
           arguments: publishJsPackageToNpmjsRegistry
