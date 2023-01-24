@@ -78,14 +78,18 @@ npmPublish {
     }
     packages {
         getByName("js") {
-//            readme.set(file("README.md"))
+            readme.set(file("README.md"))
             packageJson {
                 "bin" by {
                     "volglass" by "boot.js"
                 }
                 main.set("boot.js")
                 private.set(false)
-                keywords.set(listOf("volglass", "markdown"))
+                keywords.set(listOf("volglass", "markdown", "kotlin"))
+                repository {
+                    type.set("git")
+                    url.set("https://github.com/turtton/volglass-cli")
+                }
             }
             files {
                 from("bin/boot.js")
