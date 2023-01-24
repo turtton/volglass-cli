@@ -9,7 +9,7 @@ on:
       - "main"
 
 permissions:
-  containers: read
+  contents: read
 
 jobs:
   lint:
