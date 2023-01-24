@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "net.turtton"
-version = "1.0-SNAPSHOT"
+version = System.getenv()["VERSION_TAG"]?.replace("v", "") ?: "DEV"
 
 repositories {
     mavenCentral()
@@ -72,8 +72,8 @@ npmPublish {
     registries {
         register("npmjs") {
             uri.set("https://registry.npmjs.org")
-            // TODO register npm
-            authToken.set("TODO")
+            val token = System.getenv()["NODE_AUTH_TOKEN"] ?: return@register
+            authToken.set(token)
         }
     }
     packages {
