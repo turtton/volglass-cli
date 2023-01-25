@@ -14,6 +14,8 @@ import io.mkdir
 import io.pnpmVolglass
 import io.spawnAsync
 import io.writeAllText
+import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
 import warn
@@ -28,9 +30,23 @@ abstract class Prepare : CliktCommand() {
             processContents(POST_DIR, VOLGLASS_DIR)
             val buildContent = pnpmVolglass("run", "build")
             echo(execMessage(buildContent))
-            spawnAsync(buildContent)
-            // FIXME: I don't know why, but first build fails.
-            spawnAsync(buildContent)
+            for (i in 1..6) {
+                val exitCode = spawnAsync(buildContent)
+                if (exitCode == 0) {
+                    break
+                } else if (i == 6) {
+                    error("Failed to build volglass")
+                } else {
+                    print(warn("($i/5) Failed to build packages retrying"))
+                    repeat(3) {
+                        delay(1.seconds)
+                        print(".")
+                        if (it == 3) {
+                            echo()
+                        }
+                    }
+                }
+            }
             runAsChild()
         }
     }
