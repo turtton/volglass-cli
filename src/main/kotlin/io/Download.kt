@@ -1,6 +1,7 @@
 package io
 
 import de.jensklingenberg.ktorfit.Ktorfit
+import info
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.statement.HttpStatement
 import io.ktor.client.statement.bodyAsChannel
@@ -8,6 +9,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.Json
+import note
 import okio.Buffer
 import okio.NodeJsFileSystem
 import okio.Path.Companion.toPath
@@ -18,7 +20,7 @@ const val REPO = "volglass"
 suspend fun downloadLatestRepo() {
     val ktorfit = createClient()
     val githubApi = ktorfit.create<GithubApi>()
-    println("Checking new releases")
+    println(info("Checking new releases"))
     val releaseData = githubApi.getLatestRelease(OWNER, REPO)
     val currentCacheData = CACHE.get()
     val currentTag = currentCacheData?.currentVersion
@@ -26,7 +28,7 @@ suspend fun downloadLatestRepo() {
     val volglassPath = VOLGLASS_DIR.toPath()
     if (volglassPath.exists()) {
         if (tag == currentTag) {
-            println("Latest version is already downloaded. If you want to download again, please remove current $VOLGLASS_DIR file.")
+            println(note("Latest version is already downloaded. If you want to download again, please remove current $VOLGLASS_DIR file."))
             return
         } else {
             volglassPath.delete()
