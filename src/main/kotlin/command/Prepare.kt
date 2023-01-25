@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import okio.Path.Companion.toPath
 import warn
 
-abstract class Prepare : CliktCommand() {
+abstract class Prepare(help: String = "") : CliktCommand(help) {
     override fun run() {
         COROUTINE_SCOPE.launch {
             downloadLatestRepo()
