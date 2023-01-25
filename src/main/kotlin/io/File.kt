@@ -63,8 +63,8 @@ fun Path.copy(targetPath: Path): Result<Unit> = kotlin.runCatching {
     println(warn("Failed to copy file $targetPath"))
 }
 
-fun Path.copyRecursively(targetPath: Path, ignoreRule: Regex = "".toRegex()): Result<Unit> = kotlin.runCatching {
-    if (targetPath.name.contains(ignoreRule)) {
+fun Path.copyRecursively(targetPath: Path, ignoreRule: Regex? = null): Result<Unit> = kotlin.runCatching {
+    if (ignoreRule != null && targetPath.name.contains(ignoreRule)) {
         return@runCatching
     }
     val metadata = fs.metadata(this)
