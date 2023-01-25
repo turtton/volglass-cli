@@ -37,7 +37,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
                 } else if (i == 6) {
                     error("Failed to build volglass")
                 } else {
-                    print(warn("($i/5) Failed to build packages retrying"))
+                    print(warn("($i/5) Failed to build contents retrying"))
                     repeat(3) {
                         delay(1.seconds)
                         print(".")
