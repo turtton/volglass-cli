@@ -12,16 +12,17 @@ version = System.getenv()["VERSION_TAG"]?.replace("v", "") ?: "DEV"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.521"))
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")?.version?.also {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$it")
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
     implementation("com.github.ajalt.clikt:clikt:3.5.2")
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")

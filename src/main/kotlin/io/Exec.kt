@@ -1,22 +1,23 @@
 package io
 
-import child_process.spawn
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import node.childProcess.fork
+import node.events.Event
 
 typealias ExecCommand = Pair<String, Array<String>>
 
 suspend fun spawnAsync(cmd: ExecCommand) = spawnAsync(cmd.first, *cmd.second)
 
 suspend fun spawnAsync(command: String, vararg args: String) = suspendCoroutine { continuation ->
-    spawn(command, args.toList().toTypedArray()).apply {
-        stdout?.addListener("data") { data ->
+    fork(command, args.toList().toTypedArray()).apply {
+        stdout?.addListener(Event.DATA) { data ->
             println(data)
         }
-        stderr?.addListener("data") { data ->
+        stderr?.addListener(Event.DATA) { data ->
             println(data)
         }
-        on("exit") { code ->
+        on(Event.EXIT) { code, _ ->
             continuation.resume(code as Int)
         }
     }
