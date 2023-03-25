@@ -37,7 +37,7 @@ suspend fun downloadLatestRepo(): String {
     }
     println("Start downloading new release")
     val zipFile = "$VOLGLASS_DIR.zip"
-    githubApi.donwloadZipBall(OWNER, REPO, tag).writeToFile(zipFile)
+    githubApi.downloadZipBall(OWNER, REPO, tag).writeToFile(zipFile)
     extractZipFile(zipFile, VOLGLASS_DIR)
     zipFile.toPath().delete()
     volglassPath.list().getOrThrow()[0].extractFiles()

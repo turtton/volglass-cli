@@ -28,7 +28,7 @@ class DownloadTest {
         val zipFileName = "test.zip"
         val zipFilePath = zipFileName.toPath()
         assertTrue(!zipFilePath.exists(), "Zip file pre check")
-        githubApi.donwloadZipBall("turtton", "YtAlarm", "v0.1.0").writeToFile(zipFileName)
+        githubApi.downloadZipBall("turtton", "YtAlarm", "v0.1.0").writeToFile(zipFileName)
         assertTrue(zipFilePath.exists(), "ZipFile Exists")
         val outputName = "test"
         val outputPath = outputName.toPath()

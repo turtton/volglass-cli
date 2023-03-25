@@ -13,7 +13,7 @@ interface GithubApi {
 
     @Headers(USER_AGENT)
     @GET("repos/{owner}/{repo}/zipball/{tag}")
-    suspend fun donwloadZipBall(
+    suspend fun downloadZipBall(
         @Path("owner") owner: String,
         @Path("repo") repo: String,
         @Path("tag") tag: String,
