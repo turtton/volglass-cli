@@ -1,5 +1,6 @@
 @file:JsModule("node:child_process")
 @file:JsNonModule
+
 package external
 
 import js.core.ReadonlyArray
