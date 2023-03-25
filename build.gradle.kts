@@ -52,10 +52,6 @@ kotlin {
     }
 }
 
-kotlinter {
-    experimentalRules = true
-}
-
 tasks.create("cleanJsTestProject") {
     doFirst {
         file("$buildDir/js/packages/${project.name}-test").listFiles()?.forEach {
