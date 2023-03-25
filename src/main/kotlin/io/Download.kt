@@ -17,7 +17,7 @@ import okio.Path.Companion.toPath
 const val OWNER = "turtton"
 const val REPO = "volglass"
 
-suspend fun downloadLatestRepo() {
+suspend fun downloadLatestRepo(): String {
     val ktorfit = createClient()
     val githubApi = ktorfit.create<GithubApi>()
     println(info("Checking new releases"))
@@ -29,7 +29,7 @@ suspend fun downloadLatestRepo() {
     if (volglassPath.exists()) {
         if (tag == currentTag) {
             println(note("Latest version is already downloaded. If you want to download again, please remove current $VOLGLASS_DIR file."))
-            return
+            return tag
         } else {
             volglassPath.delete()
             CONTENT_DIR.toPath().delete()
@@ -42,6 +42,7 @@ suspend fun downloadLatestRepo() {
     zipFile.toPath().delete()
     volglassPath.list().getOrThrow()[0].extractFiles()
     CACHE.set(currentCacheData?.copy(currentVersion = tag) ?: CacheData(tag))
+    return tag
 }
 
 suspend fun HttpStatement.writeToFile(path: String) = execute { response ->

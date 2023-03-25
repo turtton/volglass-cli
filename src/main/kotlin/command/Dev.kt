@@ -42,9 +42,9 @@ class Dev : CliktCommand() {
                     it.printStackTrace()
                     error("Failed to download templates")
                 }
-                Prepare.processContents(templateDir, devDirName)
+                Prepare.processContents(templateDir, devDirName, false)
             } else {
-                Prepare.processContents(POST_DIR, devDirName)
+                Prepare.processContents(POST_DIR, devDirName, false)
             }
             val devInstall = pnpmWithWorkSpace(devDirName, "i")
             echo(execMessage(devInstall))

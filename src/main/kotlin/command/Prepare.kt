@@ -23,11 +23,21 @@ import warn
 abstract class Prepare(help: String = "") : CliktCommand(help) {
     override fun run() {
         COROUTINE_SCOPE.launch {
-            downloadLatestRepo()
+            val tag = downloadLatestRepo()
+            // Check version is v0.4.0 or higher
+            val hasImageSupport = tag.removePrefix("v")
+                .split(".")
+                .filterIndexed { index, version ->
+                    when (index) {
+                        0 -> version.toInt() > 0
+                        1 -> version.toInt() > 4
+                        else -> false
+                    }
+                }.any()
             val prepareVolglass = pnpmVolglass("i")
             echo(execMessage(prepareVolglass))
             spawnAsync(prepareVolglass)
-            processContents(POST_DIR, VOLGLASS_DIR)
+            processContents(POST_DIR, VOLGLASS_DIR, !hasImageSupport)
             val buildContent = pnpmVolglass("run", "build")
             echo(execMessage(buildContent))
             for (i in 1..6) {
@@ -54,7 +64,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
     abstract suspend fun runAsChild()
 
     companion object {
-        fun processContents(targetDirectory: String, outputDir: String, mkDirs: Boolean = true, rootPath: String? = null) {
+        fun processContents(targetDirectory: String, outputDir: String, separateContents: Boolean, mkDirs: Boolean = true, rootPath: String? = null) {
             val contentPostDir = "$outputDir/posts".toPath()
             val contentImageDir = "$outputDir/public/images".toPath()
             val targetDirPath = targetDirectory.toPath()
@@ -68,12 +78,12 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
             }
             targetDirPath.list().getOrNull()?.forEach {
                 if (it.isDirectory().getOrThrow()) {
-                    processContents(it.toString(), outputDir, false, rootPath ?: targetDirectory)
+                    processContents(it.toString(), outputDir, separateContents, false, rootPath ?: targetDirectory)
                 } else {
                     val targetPath = it.toString().split(rootPath ?: targetDirectory).last()
                     val fileName = it.name
                     val extension = fileName.split(".").lastOrNull()
-                    if (extension != "md") {
+                    if (separateContents && extension != "md") {
                         val contentImageFile = "$contentImageDir/$fileName".toPath()
                         if (contentImageFile.exists()) {
                             println(warn("$fileName is already exists. Please rename either"))

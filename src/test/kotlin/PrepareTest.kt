@@ -13,7 +13,7 @@ class PrepareTest {
         prepare(processDir)
         val resultDir = "processed"
         resultDir.toPath().mkdir()
-        Prepare.processContents(processDir, resultDir)
+        Prepare.processContents(processDir, resultDir, true)
 
         val postDir = "$resultDir/posts"
         assertTrue("$postDir/README.md".toPath().exists(), "README.md")
@@ -23,6 +23,23 @@ class PrepareTest {
         val imageDir = "$resultDir/public/images"
         assertTrue("$imageDir/image1.png".toPath().exists(), "image1.png")
         assertTrue("$imageDir/image2.jpeg".toPath().exists(), "image2.jpeg")
+    }
+
+    @Test
+    fun processContentsForV04() {
+        val processDir = "processContents"
+        prepare(processDir)
+        val resultDir = "processed"
+        resultDir.toPath().mkdir()
+        Prepare.processContents(processDir, resultDir, false)
+
+        val postDir = "$resultDir/posts"
+        assertTrue("$postDir/README.md".toPath().exists(), "README.md")
+        assertTrue("$postDir/text1.md".toPath().exists(), "text1.md")
+        assertTrue("$postDir/child/text2.md".toPath().exists(), "text2.md")
+
+        assertTrue("$postDir/image1.png".toPath().exists(), "image1.png")
+        assertTrue("$postDir/child/image2.jpeg".toPath().exists(), "image2.jpeg")
     }
 
     private fun prepare(processDirName: String) {
