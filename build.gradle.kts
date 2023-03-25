@@ -4,7 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.0-1.0.8"
     id("de.jensklingenberg.ktorfit") version "1.0.0"
     id("dev.petuska.npm.publish") version "3.2.0"
-    id("org.jmailen.kotlinter") version "3.13.0"
+    id("org.jmailen.kotlinter") version "3.14.0"
 }
 
 group = "net.turtton"
