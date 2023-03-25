@@ -19,10 +19,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")?.version?.also {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$it")
     }
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-nodejs:0.0.7")
-    implementation("com.github.ajalt.clikt:clikt:3.5.1")
+    implementation("com.github.ajalt.clikt:clikt:3.5.2")
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")
     }
@@ -33,7 +33,7 @@ dependencies {
         implementation("io.ktor:ktor-client-content-negotiation:$it")
         implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
     }
-    implementation("io.github.xxfast:kstore:0.2.0")
+    implementation("io.github.xxfast:kstore:0.3.0")
     implementation(npm("adm-zip", "0.5.10"))
     testImplementation(kotlin("test"))
 }
