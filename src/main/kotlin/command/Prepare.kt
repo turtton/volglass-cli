@@ -49,14 +49,15 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
             }
             val buildContent = pnpmVolglass("run", "build")
             echo(execMessage(buildContent))
-            for (i in 1..6) {
+            val maxTryCount = 4
+            for (i in 1..maxTryCount) {
                 val exitCode = spawnAsync(buildContent)
                 if (exitCode == 0) {
                     break
                 } else if (i == 6) {
                     error("Failed to build volglass")
                 } else {
-                    print(warn("($i/5) Failed to build contents retrying"))
+                    print(warn("($i/${maxTryCount - 1}) Failed to build contents retrying"))
                     repeat(3) {
                         delay(1.seconds)
                         print(".")
