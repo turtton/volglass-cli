@@ -15,12 +15,8 @@ import io.pnpmVolglass
 import io.spawnAsync
 import io.writeAllText
 import kotlin.time.Duration.Companion.seconds
-import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import node.fs.chmodAsync
-import node.fs.chmodSync
-import node.fs.fchmodSync
 import node.process.Platform
 import node.process.process
 import okio.Path.Companion.toPath
