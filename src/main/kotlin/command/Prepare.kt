@@ -15,8 +15,14 @@ import io.pnpmVolglass
 import io.spawnAsync
 import io.writeAllText
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import node.fs.chmodAsync
+import node.fs.chmodSync
+import node.fs.fchmodSync
+import node.process.Platform
+import node.process.process
 import okio.Path.Companion.toPath
 import warn
 
@@ -38,6 +44,9 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
             echo(execMessage(prepareVolglass))
             spawnAsync(prepareVolglass)
             processContents(POST_DIR, VOLGLASS_DIR, !hasImageSupport)
+            if (process.platform == Platform.linux) {
+                spawnAsync("chmod", "+x", "${process.cwd()}/$VOLGLASS_DIR/kotlin/gradlew")
+            }
             val buildContent = pnpmVolglass("run", "build")
             echo(execMessage(buildContent))
             for (i in 1..6) {
