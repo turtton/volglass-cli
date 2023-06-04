@@ -57,6 +57,13 @@ configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
     version = ktorFitVersion
 }
 
+// Exclude ksp generated files from lint target
+tasks.whenTaskAdded {
+    if (name.contains("Generated") && (name.contains("lint") || name.contains("format"))) {
+        enabled = false
+    }
+}
+
 tasks.create("cleanJsTestProject") {
     doFirst {
         file("$buildDir/js/packages/${project.name}-test").listFiles()?.forEach {
