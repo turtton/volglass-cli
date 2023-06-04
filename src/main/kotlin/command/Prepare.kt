@@ -50,7 +50,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
                 val exitCode = spawnAsync(buildContent)
                 if (exitCode == 0) {
                     break
-                } else if (i == 6) {
+                } else if (i == maxTryCount) {
                     error("Failed to build volglass")
                 } else {
                     print(warn("($i/${maxTryCount - 1}) Failed to build contents retrying"))
