@@ -7,6 +7,8 @@ plugins {
     id("org.jmailen.kotlinter") version "3.15.0"
 }
 
+val ktorFitVersion = "1.4.1"
+
 group = "net.turtton"
 version = System.getenv()["VERSION_TAG"]?.replace("v", "") ?: "DEV"
 
@@ -27,14 +29,13 @@ dependencies {
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")
     }
-    ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:1.4.1")?.version?.also {
-        implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$it")
-    }
+    add("kspJs", "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorFitVersion")
+    implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$ktorFitVersion")
     implementation("io.ktor:ktor-client-core:2.3.1")?.version?.also {
         implementation("io.ktor:ktor-client-content-negotiation:$it")
         implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
     }
-    implementation("io.github.xxfast:kstore:0.6.0")
+    implementation("io.github.xxfast:kstore-file:0.6.0")
     implementation(npm("adm-zip", "0.5.10"))
     testImplementation(kotlin("test"))
 }
@@ -50,6 +51,10 @@ kotlin {
             }
         }
     }
+}
+
+configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
+    version = ktorFitVersion
 }
 
 tasks.create("cleanJsTestProject") {
