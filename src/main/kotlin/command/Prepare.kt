@@ -32,7 +32,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
                 .filterIndexed { index, version ->
                     when (index) {
                         0 -> version.toInt() > 0
-                        1 -> version.toInt() > 4
+                        1 -> version.toInt() >= 4
                         else -> false
                     }
                 }.any()
