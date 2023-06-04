@@ -1,10 +1,10 @@
 plugins {
-    kotlin("js") version "1.8.0"
-    kotlin("plugin.serialization") version "1.8.0"
-    id("com.google.devtools.ksp") version "1.8.0-1.0.8"
+    kotlin("js") version "1.8.21"
+    kotlin("plugin.serialization") version "1.8.21"
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
     id("de.jensklingenberg.ktorfit") version "1.0.0"
-    id("dev.petuska.npm.publish") version "3.2.0"
-    id("org.jmailen.kotlinter") version "3.14.0"
+    id("dev.petuska.npm.publish") version "3.3.1"
+    id("org.jmailen.kotlinter") version "3.15.0"
 }
 
 group = "net.turtton"
@@ -15,26 +15,26 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.521"))
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.557"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")?.version?.also {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")?.version?.also {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$it")
     }
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("com.github.ajalt.clikt:clikt:3.5.2")
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")
     }
-    ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:1.0.0-beta17")?.version?.also {
+    ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:1.4.1")?.version?.also {
         implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$it")
     }
-    implementation("io.ktor:ktor-client-core:2.2.2")?.version?.also {
+    implementation("io.ktor:ktor-client-core:2.3.1")?.version?.also {
         implementation("io.ktor:ktor-client-content-negotiation:$it")
         implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
     }
-    implementation("io.github.xxfast:kstore:0.3.0")
+    implementation("io.github.xxfast:kstore:0.6.0")
     implementation(npm("adm-zip", "0.5.10"))
     testImplementation(kotlin("test"))
 }
