@@ -1,7 +1,7 @@
 plugins {
-    kotlin("js") version "1.8.21"
-    kotlin("plugin.serialization") version "1.8.21"
-    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
+    kotlin("js") version "1.8.22"
+    kotlin("plugin.serialization") version "1.8.22"
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("de.jensklingenberg.ktorfit") version "1.0.0"
     id("dev.petuska.npm.publish") version "3.3.1"
     id("org.jmailen.kotlinter") version "3.15.0"
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.557"))
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.564"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")?.version?.also {
