@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.564"))
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.568"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")?.version?.also {
