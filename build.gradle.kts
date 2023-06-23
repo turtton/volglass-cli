@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.568"))
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.572"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")?.version?.also {
@@ -25,7 +25,7 @@ dependencies {
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("com.github.ajalt.clikt:clikt:3.5.2")
+    implementation("com.github.ajalt.clikt:clikt:3.5.4")
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")
     }
