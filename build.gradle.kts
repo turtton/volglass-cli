@@ -7,7 +7,7 @@ plugins {
     id("org.jmailen.kotlinter") version "3.15.0"
 }
 
-val ktorFitVersion = "1.4.1"
+val ktorFitVersion = "1.4.2"
 
 group = "net.turtton"
 version = System.getenv()["VERSION_TAG"]?.replace("v", "") ?: "DEV"
@@ -17,10 +17,10 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.572"))
+    implementation(enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.581"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")?.version?.also {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")?.version?.also {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$it")
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
@@ -31,7 +31,7 @@ dependencies {
     }
     add("kspJs", "de.jensklingenberg.ktorfit:ktorfit-ksp:$ktorFitVersion")
     implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$ktorFitVersion")
-    implementation("io.ktor:ktor-client-core:2.3.1")?.version?.also {
+    implementation("io.ktor:ktor-client-core:2.3.2")?.version?.also {
         implementation("io.ktor:ktor-client-content-negotiation:$it")
         implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
     }
