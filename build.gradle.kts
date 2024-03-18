@@ -4,7 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.22-1.0.11"
     id("de.jensklingenberg.ktorfit") version "1.0.0"
     id("dev.petuska.npm.publish") version "3.3.1"
-    id("org.jmailen.kotlinter") version "3.15.0"
+    id("org.jmailen.kotlinter") version "4.3.0"
 }
 
 val ktorFitVersion = "1.4.2"
