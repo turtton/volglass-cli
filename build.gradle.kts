@@ -25,7 +25,7 @@ dependencies {
     }
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("com.github.ajalt.clikt:clikt:3.5.4")
+    implementation("com.github.ajalt.clikt:clikt:4.3.0")
     implementation("com.squareup.okio:okio:3.3.0")?.version?.also {
         implementation("com.squareup.okio:okio-nodefilesystem:$it")
     }
