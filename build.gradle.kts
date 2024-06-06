@@ -1,7 +1,7 @@
 plugins {
     kotlin("js") version "1.8.22"
     kotlin("plugin.serialization") version "1.8.22"
-    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
+    id("com.google.devtools.ksp") version "2.0.0-1.0.22"
     id("de.jensklingenberg.ktorfit") version "1.0.0"
     id("dev.petuska.npm.publish") version "3.3.1"
     id("org.jmailen.kotlinter") version "3.15.0"
