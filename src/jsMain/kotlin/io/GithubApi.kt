@@ -9,7 +9,10 @@ import io.response.ReleaseData
 interface GithubApi {
     @Headers(USER_AGENT, "Accept: application/vnd.github.v3+json")
     @GET("repos/{owner}/{repo}/releases/latest")
-    suspend fun getLatestRelease(@Path("owner") owner: String, @Path("repo") repo: String): ReleaseData
+    suspend fun getLatestRelease(
+        @Path("owner") owner: String,
+        @Path("repo") repo: String,
+    ): ReleaseData
 
     @Headers(USER_AGENT)
     @GET("repos/{owner}/{repo}/zipball/{tag}")

@@ -9,7 +9,10 @@ typealias ExecCommand = Pair<String, Array<String>>
 
 suspend fun spawnAsync(cmd: ExecCommand) = spawnAsync(cmd.first, *cmd.second)
 
-suspend fun spawnAsync(command: String, vararg args: String) = suspendCoroutine { continuation ->
+suspend fun spawnAsync(
+    command: String,
+    vararg args: String,
+) = suspendCoroutine { continuation ->
     spawn(command, args.toList().toTypedArray()).apply {
         stdout?.addListener(Event.DATA) { data ->
             println(data)
@@ -25,6 +28,9 @@ suspend fun spawnAsync(command: String, vararg args: String) = suspendCoroutine 
 
 fun pnpm(vararg args: String): ExecCommand = "pnpm" to args.toList().toTypedArray()
 
-fun pnpmWithWorkSpace(workSpace: String, vararg args: String): ExecCommand = pnpm("-C", workSpace, *args)
+fun pnpmWithWorkSpace(
+    workSpace: String,
+    vararg args: String,
+): ExecCommand = pnpm("-C", workSpace, *args)
 
 fun pnpmVolglass(vararg args: String): ExecCommand = pnpmWithWorkSpace(VOLGLASS_DIR, *args)

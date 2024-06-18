@@ -10,7 +10,7 @@ buildscript {
                 "com.pinterest.ktlint:ktlint-cli-reporter-html:1.2.1",
                 "com.pinterest.ktlint:ktlint-cli-reporter-plain:1.2.1",
                 "com.pinterest.ktlint:ktlint-cli-reporter-sarif:1.2.1",
-                "com.pinterest.ktlint:ktlint-ruleset-standard:1.2.1"
+                "com.pinterest.ktlint:ktlint-ruleset-standard:1.2.1",
             )
         }
     }

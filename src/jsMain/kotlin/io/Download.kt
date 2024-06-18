@@ -45,35 +45,42 @@ suspend fun downloadLatestRepo(): String {
     return tag
 }
 
-suspend fun HttpStatement.writeToFile(path: String) = execute { response ->
-    val contentBody = response.bodyAsChannel()
-    val bufferSize = 1024 * 100
-    val buffer = ByteArray(bufferSize)
+suspend fun HttpStatement.writeToFile(path: String) =
+    execute { response ->
+        val contentBody = response.bodyAsChannel()
+        val bufferSize = 1024 * 100
+        val buffer = ByteArray(bufferSize)
 
-    var lastPrintedTime = Clock.System.now().minus(2.seconds)
-    val zipFile = NodeJsFileSystem.sink(path.toPath())
-    do {
-        val current = contentBody.readAvailable(buffer, 0, bufferSize)
+        var lastPrintedTime = Clock.System.now().minus(2.seconds)
+        val zipFile = NodeJsFileSystem.sink(path.toPath())
+        do {
+            val current = contentBody.readAvailable(buffer, 0, bufferSize)
 
-        if (current > 0) {
-            val now = Clock.System.now()
-            if (now.minus(lastPrintedTime) > 1.seconds) {
-                println("Downloading...${contentBody.totalBytesRead} bytes")
-                lastPrintedTime = now
+            if (current > 0) {
+                val now = Clock.System.now()
+                if (now.minus(lastPrintedTime) > 1.seconds) {
+                    println("Downloading...${contentBody.totalBytesRead} bytes")
+                    lastPrintedTime = now
+                }
+                val writableBuffer = if (current < bufferSize) buffer.sliceArray(0 until current) else buffer
+                zipFile.write(Buffer().write(writableBuffer), writableBuffer.size.toLong())
             }
-            val writableBuffer = if (current < bufferSize) buffer.sliceArray(0 until current) else buffer
-            zipFile.write(Buffer().write(writableBuffer), writableBuffer.size.toLong())
-        }
-    } while (!contentBody.isClosedForRead)
-    zipFile.flush()
-    println("Complete! Total:${contentBody.totalBytesRead} bytes")
-}
-
-fun createClient(): Ktorfit = Ktorfit.Builder().build {
-    httpClient {
-        install(ContentNegotiation) {
-            json(Json { isLenient = true; ignoreUnknownKeys = true })
-        }
+        } while (!contentBody.isClosedForRead)
+        zipFile.flush()
+        println("Complete! Total:${contentBody.totalBytesRead} bytes")
     }
-    baseUrl("https://api.github.com/")
-}
+
+fun createClient(): Ktorfit =
+    Ktorfit.Builder().build {
+        httpClient {
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                    },
+                )
+            }
+        }
+        baseUrl("https://api.github.com/")
+    }

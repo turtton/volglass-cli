@@ -20,6 +20,7 @@ jobs:
       - name: Lint Check
         uses: musichin/ktlint-check@v2
         with:
+          ktlint-version: "1.2.1"
           relative: true
           patterns: |
             **/**.kt
