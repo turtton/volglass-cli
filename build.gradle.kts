@@ -16,15 +16,13 @@ buildscript {
     }
 }
 plugins {
-    kotlin("multiplatform") version "1.9.24"
-    kotlin("plugin.serialization") version "1.9.24"
-    id("com.google.devtools.ksp") version "1.9.24-1.0.20"
-    id("de.jensklingenberg.ktorfit") version "1.14.0"
+    kotlin("multiplatform") version "2.0.0"
+    kotlin("plugin.serialization") version "2.0.0"
+    id("com.google.devtools.ksp") version "2.0.0-1.0.22"
+    id("de.jensklingenberg.ktorfit") version "2.0.0"
     id("dev.petuska.npm.publish") version "3.4.2"
     id("org.jmailen.kotlinter") version "3.16.0"
 }
-
-val ktorFitVersion = "1.14.0"
 
 group = "net.turtton"
 version = System.getenv()["VERSION_TAG"]?.replace("v", "") ?: "DEV"
@@ -35,6 +33,7 @@ repositories {
 
 kotlin {
     js {
+        useCommonJs()
         binaries.library()
         nodejs {
             testTask {
@@ -58,12 +57,14 @@ kotlin {
                 implementation("com.squareup.okio:okio:3.9.0")?.version?.also {
                     implementation("com.squareup.okio:okio-nodefilesystem:$it")
                 }
-                implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$ktorFitVersion")
+                implementation("de.jensklingenberg.ktorfit:ktorfit-lib:2.0.0")
                 implementation("io.ktor:ktor-client-core:2.3.11")?.version?.also {
                     implementation("io.ktor:ktor-client-content-negotiation:$it")
                     implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
                 }
-                implementation("io.github.xxfast:kstore-file:0.8.0")
+                implementation("io.github.xxfast:kstore:0.8.0")?.version?.also {
+                    implementation("io.github.xxfast:kstore-file:$it")
+                }
                 implementation(npm("adm-zip", "0.5.10"))
             }
         }
@@ -93,9 +94,11 @@ tasks.create("cleanJsTestProject") {
         }
     }
 }.also {
-
     tasks.getByName("jsTest").dependsOn(it)
 }
+
+// https://github.com/google/ksp/issues/1525
+tasks.create("kspCommonMainKotlinMetadata")
 
 npmPublish {
     registries {

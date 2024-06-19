@@ -3,7 +3,7 @@
 
 package external
 
-import js.core.ReadonlyArray
+import js.array.ReadonlyArray
 import node.childProcess.ChildProcess
 
 external fun spawn(
