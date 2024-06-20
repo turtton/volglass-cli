@@ -37,7 +37,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
                             else -> false
                         }
                     }.any()
-            val prepareVolglass = pnpmVolglass("i")
+            val prepareVolglass = pnpmVolglass("i", "--frozen-lockfile")
             echo(execMessage(prepareVolglass))
             spawnAsync(prepareVolglass)
             processContents(POST_DIR, VOLGLASS_DIR, !hasImageSupport)
