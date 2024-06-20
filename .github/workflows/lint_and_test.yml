@@ -42,8 +42,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v3
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: check
+        uses: gradle/actions/setup-gradle@v3
+      - run: ./gradlew check
