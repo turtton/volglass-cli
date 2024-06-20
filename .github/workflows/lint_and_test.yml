@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -18,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Lint Check
-        uses: musichin/ktlint-check@v2
+        uses: musichin/ktlint-check@v3
         with:
           ktlint-version: "1.2.1"
           relative: true
