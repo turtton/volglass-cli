@@ -56,7 +56,10 @@ class Dev : CliktCommand() {
     }
 
     companion object {
-        suspend fun clone(workDir: String, useSsh: Boolean) {
+        suspend fun clone(
+            workDir: String,
+            useSsh: Boolean,
+        ) {
             val devDir = workDir.toPath()
             if (devDir.exists()) {
                 println(log("Detect", workDir))
@@ -68,23 +71,24 @@ class Dev : CliktCommand() {
             spawnAsync(cloneCommand)
         }
 
-        suspend fun downloadTemplate(targetDir: Path): Result<Unit> = kotlin.runCatching {
-            if (targetDir.exists()) {
-                println(note("$targetDir already exists. If you want to download again, please delete it."))
-                return@runCatching
+        suspend fun downloadTemplate(targetDir: Path): Result<Unit> =
+            kotlin.runCatching {
+                if (targetDir.exists()) {
+                    println(note("$targetDir already exists. If you want to download again, please delete it."))
+                    return@runCatching
+                }
+                val templateRepoDir = "templateRepo"
+                val templateRepoDirPath = templateRepoDir.toPath()
+                val templateRepoZip = "templateRepo.zip"
+                HttpClient()
+                    .prepareGet("https://github.com/turtton/volglass-docs/archive/refs/heads/main.zip")
+                    .writeToFile(templateRepoZip)
+                extractZipFile(templateRepoZip, templateRepoDir)
+                templateRepoDirPath.list().getOrThrow()[0].extractFiles()
+                val templateContentDir = templateRepoDirPath.div("posts")
+                templateContentDir.copyRecursively(targetDir)
+                templateRepoZip.toPath().delete().getOrThrow()
+                templateRepoDirPath.delete().getOrThrow()
             }
-            val templateRepoDir = "templateRepo"
-            val templateRepoDirPath = templateRepoDir.toPath()
-            val templateRepoZip = "templateRepo.zip"
-            HttpClient()
-                .prepareGet("https://github.com/turtton/volglass-docs/archive/refs/heads/main.zip")
-                .writeToFile(templateRepoZip)
-            extractZipFile(templateRepoZip, templateRepoDir)
-            templateRepoDirPath.list().getOrThrow()[0].extractFiles()
-            val templateContentDir = templateRepoDirPath.div("posts")
-            templateContentDir.copyRecursively(targetDir)
-            templateRepoZip.toPath().delete().getOrThrow()
-            templateRepoDirPath.delete().getOrThrow()
-        }
     }
 }

@@ -9,9 +9,10 @@ import okio.Path.Companion.toPath
 @OptIn(ExperimentalCoroutinesApi::class)
 class DevTest {
     @Test
-    fun downloadTemplateTest() = runTest {
-        val templateDirPath = "DownloadTemplateTestDir".toPath()
-        Dev.downloadTemplate(templateDirPath).getOrThrow()
-        assertTrue(templateDirPath.div("README.md").exists(), "downloaded README.md")
-    }
+    fun downloadTemplateTest() =
+        runTest {
+            val templateDirPath = "DownloadTemplateTestDir".toPath()
+            Dev.downloadTemplate(templateDirPath).getOrThrow()
+            assertTrue(templateDirPath.div("README.md").exists(), "downloaded README.md")
+        }
 }

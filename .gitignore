@@ -2,4 +2,5 @@
 /build
 /.idea
 /.run
+/.kotlin
 /kotlin-js-store

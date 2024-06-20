@@ -10,4 +10,7 @@ fun warn(message: String): String = log("Warn", message)
 
 fun info(message: String): String = log("Info", message)
 
-fun log(prefix: String, message: String): String = "[$prefix] $message"
+fun log(
+    prefix: String,
+    message: String,
+): String = "[$prefix] $message"

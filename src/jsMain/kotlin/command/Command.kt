@@ -4,9 +4,10 @@ import com.github.ajalt.clikt.completion.completionOption
 import com.github.ajalt.clikt.core.CliktCommand
 
 class Command : CliktCommand(
-    help = """
+    help =
+        """
         Volglass helper
-    """.trimIndent(),
+        """.trimIndent(),
 ) {
     init {
         completionOption()

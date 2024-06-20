@@ -27,15 +27,16 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
         COROUTINE_SCOPE.launch {
             val tag = downloadLatestRepo()
             // Check version is v0.4.0 or higher
-            val hasImageSupport = tag.removePrefix("v")
-                .split(".")
-                .filterIndexed { index, version ->
-                    when (index) {
-                        0 -> version.toInt() > 0
-                        1 -> version.toInt() >= 4
-                        else -> false
-                    }
-                }.any()
+            val hasImageSupport =
+                tag.removePrefix("v")
+                    .split(".")
+                    .filterIndexed { index, version ->
+                        when (index) {
+                            0 -> version.toInt() > 0
+                            1 -> version.toInt() >= 4
+                            else -> false
+                        }
+                    }.any()
             val prepareVolglass = pnpmVolglass("i")
             echo(execMessage(prepareVolglass))
             spawnAsync(prepareVolglass)
@@ -47,7 +48,7 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
             echo(execMessage(buildContent))
             val maxTryCount = 4
             for (i in 1..maxTryCount) {
-                val exitCode = spawnAsync(buildContent)
+                val exitCode = spawnAsync(buildContent)?.toInt()
                 if (exitCode == 0) {
                     break
                 } else if (i == maxTryCount) {
@@ -70,7 +71,13 @@ abstract class Prepare(help: String = "") : CliktCommand(help) {
     abstract suspend fun runAsChild()
 
     companion object {
-        fun processContents(targetDirectory: String, outputDir: String, separateContents: Boolean, mkDirs: Boolean = true, rootPath: String? = null) {
+        fun processContents(
+            targetDirectory: String,
+            outputDir: String,
+            separateContents: Boolean,
+            mkDirs: Boolean = true,
+            rootPath: String? = null,
+        ) {
             val contentPostDir = "$outputDir/posts".toPath()
             val contentImageDir = "$outputDir/public/images".toPath()
             val targetDirPath = targetDirectory.toPath()
