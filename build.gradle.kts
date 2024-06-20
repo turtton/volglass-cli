@@ -47,7 +47,7 @@ kotlin {
         val coroutineVersion = "1.8.1"
         val jsMain by getting {
             dependencies {
-                implementation(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.758"))
+                implementation(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.760"))
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-node")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
