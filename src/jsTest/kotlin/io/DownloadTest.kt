@@ -4,14 +4,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okio.Path.Companion.toPath
 
 @ExperimentalCoroutinesApi
 class DownloadTest {
-    private val githubApi = createClient().create<GithubApi>()
+    private val githubApi = createClient().createGithubApi()
 
     @Test
     fun testRelease() =
@@ -26,7 +25,7 @@ class DownloadTest {
 
     @Test
     fun downloadZipAndExtract() =
-        runTest(dispatchTimeoutMs = 10.seconds.toLong(DurationUnit.MILLISECONDS)) {
+        runTest(timeout = 10.seconds) {
             val zipFileName = "test.zip"
             val zipFilePath = zipFileName.toPath()
             assertTrue(!zipFilePath.exists(), "Zip file pre check")
