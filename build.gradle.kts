@@ -53,7 +53,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
-                implementation("com.github.ajalt.clikt:clikt:4.4.0")
+                implementation("com.github.ajalt.clikt:clikt:5.0.1")
                 implementation("com.squareup.okio:okio:3.9.0")?.version?.also {
                     implementation("com.squareup.okio:okio-nodefilesystem:$it")
                 }
