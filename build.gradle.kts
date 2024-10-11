@@ -58,7 +58,7 @@ kotlin {
                     implementation("com.squareup.okio:okio-nodefilesystem:$it")
                 }
                 implementation("de.jensklingenberg.ktorfit:ktorfit-lib:2.0.0")
-                implementation("io.ktor:ktor-client-core:2.3.11")?.version?.also {
+                implementation("io.ktor:ktor-client-core:3.0.0")?.version?.also {
                     implementation("io.ktor:ktor-client-content-negotiation:$it")
                     implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
                 }
