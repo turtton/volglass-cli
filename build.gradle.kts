@@ -62,7 +62,7 @@ kotlin {
                     implementation("io.ktor:ktor-client-content-negotiation:$it")
                     implementation("io.ktor:ktor-serialization-kotlinx-json:$it")
                 }
-                implementation("io.github.xxfast:kstore:0.8.0")?.version?.also {
+                implementation("io.github.xxfast:kstore:1.0.0")?.version?.also {
                     implementation("io.github.xxfast:kstore-file:$it")
                 }
                 implementation(npm("adm-zip", "0.5.10"))
